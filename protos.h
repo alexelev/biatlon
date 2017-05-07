@@ -2,15 +2,21 @@
 #include <string>
 #include <fstream>
 
-#define MAX_SIZE 2047;
+#define MAX_SIZE 2047
+#define uint unsigned int
+
 
 using namespace std;
 
+
+/*
+	контейнер-хранилище данных
+*/
 template <typename T>
 class DStore {
 private:
 	T *store;
-	unsigned int size;
+	uint size;
 	T *ptr;
 	T* copy();
 	void copy_partial(T*, T*);
@@ -21,76 +27,98 @@ public:
 	T pop();
 };
 
-class Builder{
-private:
-	ifstream fin;
-	ofstream fout;
-
-public:
-	Builder();
-	~Builder();
-	void read(string);
-	void write(string);
-};
-
-class Lexer {
-private:
-	char delim;
-	string data;
-public:
-	Lexer();
-	~Lexer();
-	Lexer(string);
-	void setDelim(char);
-
-};
-
 class Validator {
 private:
-	DStore<string> rules;
-	unsigned int rule_count;
+	//DStore<string> rules;
+	uint rule_count;
+	uint stages;
+	uint records;
 public:
 	Validator();
 	~Validator();
 	void add_rule(string);
 	void remove_rule(string);
-	string get_rule(unsigned int);
-
+	string get_rule(uint);
+	void set_qual_stages(uint);
+	void set_qual_records(uint);
 };
+
+
+class Lexer {
+private:
+	char delim;
+	string data;
+	Validator *val;
+	string header_attr;
+	string footer_attr;
+public:
+	Lexer();
+	~Lexer();
+	Lexer(string);
+	void setDelim(char);
+	void parse_header(string);
+	void parse_footer(string);
+	string get_footer_attr();
+	string get_header_attr();
+};
+
+
+class Builder{
+private:
+	ifstream fin;
+	ofstream fout;
+	unsigned long filesize;
+	Lexer *lex;
+public:
+	Builder();
+	~Builder();
+	Builder(string);
+	void set_fs(unsigned long);
+	void read(string);
+	void write(string);
+};
+
+
+
+
+
+
+
+
 
 class Stage {
 public:
 	// номер этапа гонки
 	unsigned short number;
 	// время подхода спортсмена к первому рубежу
-	unsigned int forth_time1;
+	uint forth_time1;
 	// время отхода спортсмена от первого рубежа
-	unsigned int back_time1;
+	uint back_time1;
 	// время подхода спортсмена к первому рубежу
-	unsigned int forth_time2;
+	uint forth_time2;
 	// время отхода спортсмена от первого рубежа
-	unsigned int back_time2;
-	// страна проведения этапа
-	string country;
+	uint back_time2;
 	// номер спортсмена в данном этапе гонки
-	unsigned int start_number;
+	uint start_number;
 	// общее время прохождения этапа
-	unsigned int common_time;
+	uint common_time;
 	// кол-во промахов
 	unsigned short misses;
 	// время прохождения штрафных кругов
-	unsigned int penalty_time;
+	uint penalty_time;
 
 	Stage();
 	~Stage();
 };
+
+
 
 class Biatlonist {
 private:
 	DStore<Stage> stages;
 	string surname;
 	string fname;
-	
+	string country;
 public:
 	Biatlonist();
 	~Biatlonist();

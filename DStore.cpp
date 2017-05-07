@@ -19,6 +19,7 @@ void DStore<T>::push(T obj){
 	size++;
 	store = new T[size];
 	copy_partial(store, tmp);
+	store[size - 1] = obj;
 }
 
 template <typename T> 
