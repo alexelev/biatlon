@@ -44,6 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="README.md">
+      <Filter>Файлы ресурсов</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Text Include="text2.txt">
