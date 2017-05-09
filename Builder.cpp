@@ -53,3 +53,16 @@ void Builder::read(string path) {
 		
 	}*/
 }
+
+// Для получения первой строки обрабатываемого файла
+string Builder::get_first_line()
+{
+	return string();
+}
+
+
+// Для получения последней строки обрабатываемого файла
+string Builder::get_last_line()
+{
+	return string();
+}

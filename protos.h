@@ -76,6 +76,11 @@ public:
 	void set_fs(unsigned long);
 	void read(string);
 	void write(string);
+private:
+	// Для поулчения первой строки обрабатываемого файла
+	string get_first_line();
+	// Для получения последней строки обрабатываемого файла
+	string get_last_line();
 };
 
 
