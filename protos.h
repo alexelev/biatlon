@@ -4,6 +4,7 @@
 
 #define MAX_SIZE 2047
 #define uint unsigned int
+#define ulong unsigned long
 
 
 using namespace std;
@@ -69,18 +70,22 @@ private:
 	ofstream fout;
 	unsigned long filesize;
 	Lexer *lex;
+	uint lines;
+	// Для получения первой строки обрабатываемого файла
+	string get_first_line();
+	// Для получения последней строки обрабатываемого файла
+	string get_last_line();
+
 public:
 	Builder();
 	~Builder();
 	Builder(string);
-	void set_fs(unsigned long);
+	void set_filesize(unsigned long);
+	void read();
 	void read(string);
 	void write(string);
-private:
-	// Для поулчения первой строки обрабатываемого файла
-	string get_first_line();
-	// Для получения последней строки обрабатываемого файла
-	string get_last_line();
+	uint get_numberof_lines();
+	
 };
 
 
