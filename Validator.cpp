@@ -13,3 +13,16 @@ void Validator::set_qual_stages(uint qual) {
 	stages = qual;	
 	cout << "stages = " << qual << endl;
 }
+
+void Validator::set_fact_records (uint fact) {
+	is_records_right = fact == records;
+}
+
+bool Validator::is_start_valid() {
+	
+	if (is_header_right && is_footer_right && is_records_right) {
+		return true;
+	}
+	
+	return false;
+}

@@ -6,6 +6,13 @@ DStore<T>::DStore(){
 	store = new T[size];
 }
 
+//template <typename T>
+//DStore::DStore(DStore const &obj) {
+//	this->size = obj.size;
+//	this->store = new T[this->size];
+//}
+
+
 template <typename T> 
 DStore<T>::~DStore(){
 	size = 0;
@@ -41,3 +48,6 @@ void DStore<T>::copy_partial(T* to, T* from){
 	}
 	return ptr;
 }
+
+template <typename T>
+T DStore<T>::pop() { }

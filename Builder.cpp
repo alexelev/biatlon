@@ -134,3 +134,29 @@ uint Builder::get_numberof_lines() {
 	}
 	return NULL;
 }
+
+//template <typename Z>
+void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
+{
+	fin.open(path);
+	if (fin.is_open()) {
+		// проверка заголовока
+		string header = get_first_line();
+		lex->parse_header(header);
+		// проверка подвала
+		string footer = get_last_line();
+		lex->parse_footer(footer);
+
+		lex->val->set_fact_records(get_numberof_lines());
+
+		if (lex->val->is_start_valid()) {
+			// построчное чтение и передача на разбор
+		
+		
+		
+		}
+
+
+	}
+
+}

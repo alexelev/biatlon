@@ -9,7 +9,15 @@ using namespace std;
 int main() {
 	
 	Builder b;
-	b.read("text2.txt");
+//DStore<string> logger;
+	//DStore<Biatlonist> sportsmen;
+	//b.load_data("text2.txt", sportsmen);
+
+
+
+
+
+
 
 	//cout << 
 	system("pause");
