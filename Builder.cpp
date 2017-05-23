@@ -151,7 +151,8 @@ void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 
 		if (lex->val->is_start_valid()) {
 			// построчное чтение и передача на разбор
-		
+			goto_line(1);
+
 		
 		
 		}
@@ -159,4 +160,16 @@ void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 
 	}
 
+}
+
+void Builder::goto_line(uint number) {
+	if (fin.is_open()) {
+		string buf;
+		uint i = 0;
+		fin.seekg(0, ios::beg);
+		while (i < number) {
+			getline(fin, buf);		
+		}
+		fin.seekg(1, ios::cur);
+	}
 }

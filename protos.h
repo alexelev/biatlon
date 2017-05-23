@@ -1,42 +1,15 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-
-#include <vector>
-
-#define MAX_SIZE 2047
-#define uint unsigned int
-#define ulong unsigned long
-
+#include "DStore.h"
 
 using namespace std;
 
 class Lexer;
 class Builder;
-template <typename T>
-class DStore;
 class Stage;
 class Biatlonist;
 class Validator;
-
-/*
-контейнер-хранилище данных
-*/
-template <typename T>
-class DStore {
-private:
-	T *store;
-	uint size;
-	T *ptr;
-	T* copy();
-	void copy_partial(T*, T*);
-public:
-	DStore();
-	~DStore();
-	//DStore(DStore const &obj);
-	void push(T obj);
-	T pop();
-};
 
 class Stage {
 public:
@@ -67,7 +40,7 @@ public:
 
 class Biatlonist {
 private:
-	DStore<Stage> stages;
+	DStore<Stage> *stages;
 	string surname;
 	string fname;
 	string country;
@@ -112,8 +85,7 @@ public:
 class Lexer {
 private:
 	char delim;
-	string data;
-	
+	string data;	
 	string header_attr;
 	string footer_attr;
 public:
@@ -140,6 +112,7 @@ private:
 	string get_first_line();
 	// Для получения последней строки обрабатываемого файла
 	string get_last_line();
+	void goto_line(uint number);
 
 public:
 	Builder();
