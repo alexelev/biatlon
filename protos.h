@@ -11,8 +11,7 @@ class Stage;
 class Biatlonist;
 class Validator;
 
-class Stage {
-public:
+struct Stage {
 	// номер этапа гонки
 	unsigned short number;
 	// время подхода спортсмена к первому рубежу
@@ -31,9 +30,6 @@ public:
 	unsigned short misses;
 	// время прохождения штрафных кругов
 	uint penalty_time;
-
-	Stage();
-	//~Stage();
 };
 
 
@@ -42,7 +38,7 @@ class Biatlonist {
 private:
 	DStore<Stage> *stages;
 	string surname;
-	string fname;
+	string name;
 	string country;
 public:
 	Biatlonist();

@@ -5,4 +5,6 @@ Biatlonist::Biatlonist() {}
 
 //Biatlonist::~Biatlonist() {}
 
-Biatlonist::Biatlonist(string str) {}
+Biatlonist::Biatlonist(string name) {
+	this->name = name;
+}
