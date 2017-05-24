@@ -86,6 +86,7 @@ private:
 	string header_attr;
 	string footer_attr;
 public:
+	DStore<string> split(string);
 	Lexer();
 	~Lexer();
 	Lexer(string);
@@ -95,6 +96,8 @@ public:
 	void parse_footer(string);
 	string get_footer_attr();
 	string get_header_attr();
+	string get_schema(string);
+
 };
 
 

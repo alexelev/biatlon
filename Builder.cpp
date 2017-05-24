@@ -4,7 +4,6 @@
 	Конструктор по умолчанию
 */
 Builder::Builder(){
-	lex = new Lexer();
 }
 
 /*
@@ -44,8 +43,8 @@ Builder::~Builder(){
 void Builder::read(string path) {
 	fin.open(path);
 	if (fin.is_open()) {
-		lex->parse_header(get_first_line());
-		lex->parse_footer(get_last_line());
+		parser->parse_header(get_first_line());
+		parser->parse_footer(get_last_line());
 
 		fin.close();
 	}
@@ -57,8 +56,8 @@ void Builder::read(string path) {
 */
 void Builder::read() {
 	if (fin.is_open()) {
-		lex->parse_header(get_first_line());
-		lex->parse_footer(get_last_line());
+		parser->parse_header(get_first_line());
+		parser->parse_footer(get_last_line());
 		fin.close();
 	}
 }
@@ -142,16 +141,19 @@ void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 	if (fin.is_open()) {
 		// проверка заголовока
 		string header = get_first_line();
-		lex->parse_header(header);
+		parser->parse_header(header);
 		// проверка подвала
 		string footer = get_last_line();
-		lex->parse_footer(footer);
+		parser->parse_footer(footer);
 
-		lex->val->set_fact_records(get_numberof_lines());
+		parser->validator->set_fact_records(get_numberof_lines());
 
-		if (lex->val->is_start_valid()) {
+		if (parser->validator->is_start_valid()) {
 			// построчное чтение и передача на разбор
 			goto_line(1);
+			string buffer;
+			getline(fin, buffer);
+			
 
 		
 		

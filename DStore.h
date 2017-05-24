@@ -65,4 +65,14 @@ public:
 			cout << store[i] << endl;
 		}
 	}
+
+	DStore<T> &operator = (const DStore<T>& obj) {
+		this->size = obj.size;
+		this->store = new T[size];
+		copy(store, obj.store);
+
+		return *this;
+	}
 };
+
+// todo: написать метод, возвращающий значение элемента контейнера по индексу

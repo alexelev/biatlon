@@ -1,10 +1,37 @@
 #include "protos.h"
+/*
+	Для "разбиения" исходной строки на массив строк по разделителю (;)
+*/
+DStore<string> Lexer::split(string text)
+{
+	DStore<string> set;
+	size_t pos = 0;
+	size_t start = 0;
+	string tmp = "";
+	while ((pos = text.find_first_of(delim)) != string::npos){
+		tmp.assign(text, 0, pos);
+		text = text.substr(pos + 1);
+		set.push(tmp);
+	}
+	set.push(text);
+	
+	return set;
+}
 
 Lexer::Lexer() {
-	val = new Validator();
 	delim = ';';
 	header_attr = "header:";
 	footer_attr = "footer:";
+}
+
+Lexer::~Lexer() {}
+
+Lexer::Lexer(string)
+{
+}
+
+void Lexer::setDelim(char)
+{
 }
 
 void Lexer::parse_header(string str) {
@@ -12,10 +39,10 @@ void Lexer::parse_header(string str) {
 	if (pos != string::npos) {
 		uint hl = header_attr.length();
 		string data = str.substr(hl, str.length() - hl);
-		val->set_qual_stages(stoi(data));
+		validator->set_qual_stages(stoi(data));
 	}
 	else {
-		val->set_qual_stages(NULL);
+		validator->set_qual_stages(NULL);
 	}
 }
 
@@ -27,14 +54,25 @@ void Lexer::parse_footer(string str) {
 		fpos_t pos_delim = data.find(delim);
 		if (pos_delim != string::npos) {
 			string str_records = data.substr(0, pos_delim - 1);
-			val->set_qual_records(stoi(str_records));
+			validator->set_qual_records(stoi(str_records));
 		}
 	}
 	else {
-		val->set_qual_records(NULL);
+		validator->set_qual_records(NULL);
 	}
 }
 
 string Lexer::get_footer_attr() {
 	return footer_attr;
+}
+string Lexer::get_header_attr()
+{
+	return string();
+}
+/*
+	Для получения "схемы" формата строки файла
+*/
+string Lexer::get_schema(string)
+{
+	return string();
 }
