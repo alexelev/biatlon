@@ -3,6 +3,18 @@
 Validator::Validator() {
 }
 
+Validator::~Validator()
+{
+}
+
+void Validator::add_rule(string)
+{
+}
+
+void Validator::remove_rule(string)
+{
+}
+
 void Validator::set_qual_records(uint qual) {
 	//cout <<
 	records = qual;

@@ -3,6 +3,7 @@
 #include <fstream>
 #include "DStore.h"
 
+
 using namespace std;
 
 class Lexer;
@@ -88,7 +89,7 @@ public:
 	Lexer();
 	~Lexer();
 	Lexer(string);
-	Validator *val;
+	Validator *validator;
 	void setDelim(char);
 	void parse_header(string);
 	void parse_footer(string);
@@ -102,7 +103,7 @@ private:
 	ifstream fin;
 	ofstream fout;
 	unsigned long filesize;
-	Lexer *lex;
+	
 	uint lines;
 	// Для получения первой строки обрабатываемого файла
 	string get_first_line();
@@ -114,6 +115,7 @@ public:
 	Builder();
 	~Builder();
 	Builder(string);
+	Lexer *parser;
 	void set_filesize(unsigned long);
 	void read();
 	void read(string);

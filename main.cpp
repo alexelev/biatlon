@@ -1,13 +1,47 @@
 #include <iostream>
 #include "protos.h"
-#include <Windows.h>
 
 
 using namespace std;
 
-int main() {
-	
-	//Builder b;
+int main(int argc, char *argv[]) {
+
+	setlocale(LC_ALL, "ru");
+
+	Validator val;
+	val.add_rule("ddddsssddddd");
+	Lexer lex;
+	lex.validator = &val;
+	Builder b;
+	b.parser = &lex;
+
+	string path_source, path_dest;
+
+	/*
+		читаем параметры командной строки и определ€ем откуда читать данные и куда писать
+	*/
+	if (argc > 1) {
+		switch (argc) {
+		case 2:
+			path_source = argv[1];
+			break;
+		case 3:
+			path_source = argv[1];
+			path_dest = argv[2];
+			break;
+		default:
+
+		}
+	}
+	else {
+		cout << "¬ведите путь к исходному файлу: ";
+		getline(cin, path_source);
+		cout << "¬ведите путь к конечному файлу: ";
+		getline(cin, path_dest);
+	}
+
+
+
 //DStore<string> logger;
 	//DStore<Biatlonist> sportsmen;
 	//b.load_data("text2.txt", sportsmen);

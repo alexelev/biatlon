@@ -68,7 +68,6 @@
   <ItemGroup>
     <ClCompile Include="Biatlonist.cpp" />
     <ClCompile Include="Builder.cpp" />
-    <ClCompile Include="DStore.cpp" />
     <ClCompile Include="Lexer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Stage.cpp" />
