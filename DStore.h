@@ -9,7 +9,7 @@ class DStore {
 private:
 	T *store;
 	uint size;
-	
+	T *ptr;
 	/*
 		Для копирования части данных хранилища
 	*/
@@ -62,17 +62,56 @@ public:
 	*/
 	void show() {
 		for (int i = 0; i < size; i++) {
-			cout << store[i] << endl;
+			cout << this->at(i) << endl;
 		}
 	}
 
-	DStore<T> &operator = (const DStore<T>& obj) {
+	/*
+		Для возможности записи одного объекта в другой
+	*/
+	DStore<T> operator = (DStore<T>& obj) {
 		this->size = obj.size;
 		this->store = new T[size];
-		copy(store, obj.store);
+
+		copy(store, obj.get_data());
 
 		return *this;
 	}
-};
 
-// todo: написать метод, возвращающий значение элемента контейнера по индексу
+	/*
+		конструктор копирования. Необходим!!!
+	*/
+	DStore(DStore<T> &obj) {
+		this->size = obj.size;
+		this->store = new T[size];
+
+		copy(store, obj.get_data());
+	}
+
+
+	/*
+		Для получения значения элемента контейнера по номеру
+	*/
+	T at(uint number) {
+		if (number < size) {
+			return *(store + number);
+		}
+		return NULL;
+	}
+
+	/*
+		Для получения указателя на первый элемент контейнера
+	*/
+	T* begin() {
+		ptr = store;
+		return ptr;
+	}
+
+	/*
+		Для получения данных из хранилища
+	*/
+	T* get_data() {
+		return store;
+	}
+
+};

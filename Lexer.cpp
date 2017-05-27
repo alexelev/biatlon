@@ -14,7 +14,6 @@ DStore<string> Lexer::split(string text)
 		set.push(tmp);
 	}
 	set.push(text);
-	
 	return set;
 }
 
@@ -24,7 +23,9 @@ Lexer::Lexer() {
 	footer_attr = "footer:";
 }
 
-Lexer::~Lexer() {}
+Lexer::~Lexer() {
+	cout << "destr Lexer\n";
+}
 
 Lexer::Lexer(string)
 {

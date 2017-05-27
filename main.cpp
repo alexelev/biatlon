@@ -49,9 +49,10 @@ int main(int argc, char *argv[]) {
 
 	string example = "1;23;test;123";
 	DStore<string> tt;
-	tt = lex.split(example);
+ tt=lex.split(example);
 	tt.show();
-
+	//DStore<string> tt = lex.split(example);
+	//tt.show();
 
 
 //DStore<string> logger;
@@ -90,6 +91,6 @@ int main(int argc, char *argv[]) {
 	//testB->push(b2);
 
 
-	//system("pause");
+	system("pause");
 	return 0;
 }
