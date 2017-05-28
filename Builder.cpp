@@ -157,7 +157,8 @@ void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 			string buffer;
 			
 			while (cur_line < numberof_lines) {
-				getline(fin, buffer);	
+				getline(fin, buffer);
+				parser->parse(buffer);
 			}
 
 		

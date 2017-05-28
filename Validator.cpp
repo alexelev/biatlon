@@ -7,8 +7,9 @@ Validator::~Validator()
 {
 }
 
-void Validator::add_rule(string)
+void Validator::set_rule(string pattern)
 {
+	rule = pattern;
 }
 
 void Validator::remove_rule(string)
@@ -36,5 +37,13 @@ bool Validator::is_start_valid() {
 		return true;
 	}
 	
+	return false;
+}
+
+bool Validator::is_format_valid(string format)
+{
+	if (!rule.compare(format)) {
+		return true;
+	}
 	return false;
 }

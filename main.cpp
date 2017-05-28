@@ -9,11 +9,14 @@ int main(int argc, char *argv[]) {
 	setlocale(LC_ALL, "ru");
 
 	Validator val;
-	val.add_rule("ddddsssddddd");
+	val.set_rule("ddddsssddddd");
 	Lexer lex;
 	lex.validator = &val;
 	Builder b;
 	b.parser = &lex;
+
+	string test = "123;12;Alex;4;Emma;2";
+	cout << lex.get_schema(lex.split(test)) << endl;
 
 	//DStore<Biatlonist> container;
 	//string path_source, path_dest;
@@ -47,10 +50,10 @@ int main(int argc, char *argv[]) {
 
 	//b.load_data(path_source, container);
 
-	string example = "1;23;test;123";
-	DStore<string> tt;
- tt=lex.split(example);
-	tt.show();
+	//string example = "1;23;test;123";
+	//DStore<string> tt;
+ //tt=lex.split(example);
+	//tt.show();
 	//DStore<string> tt = lex.split(example);
 	//tt.show();
 

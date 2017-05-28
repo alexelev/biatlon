@@ -92,11 +92,11 @@ public:
 	/*
 		Для получения значения элемента контейнера по номеру
 	*/
-	T at(uint number) {
+	T at(uint number) const {
 		if (number < size) {
 			return *(store + number);
 		}
-		return NULL;
+		return "null";
 	}
 
 	/*
@@ -114,7 +114,7 @@ public:
 		return store;
 	}
 
-	uint get_size() {
+	uint get_size() const {
 		return size;
 	}
 

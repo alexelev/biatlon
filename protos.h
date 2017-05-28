@@ -53,8 +53,9 @@ public:
 
 class Validator {
 private:
+	string rule;
 	//DStore<string> rules;
-	uint rule_count;
+	//uint rule_count;
 	// кол-во этапов
 	uint stages;
 	// кол-во записей
@@ -65,18 +66,17 @@ private:
 	bool is_footer_right;
 	bool is_records_right;
 
-
-
 public:
 	Validator();
 	~Validator();
-	void add_rule(string);
+	void set_rule(string);
 	void remove_rule(string);
 	string get_rule(uint);
 	void set_qual_stages(uint);
 	void set_qual_records(uint);
 	void set_fact_records(uint);
 	bool is_start_valid();
+	bool is_format_valid(string);
 };
 
 
@@ -97,8 +97,8 @@ public:
 	void parse_footer(string);
 	string get_footer_attr();
 	string get_header_attr();
-	string get_schema(DStore<string>&);
-	void parse(string, Biatlonist);
+	string get_schema(const DStore<string>&);
+	Biatlonist parse(string);
 
 };
 
