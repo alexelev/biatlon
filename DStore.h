@@ -13,7 +13,7 @@ private:
 	/*
 		Для копирования части данных хранилища
 	*/
-	void copy(T *to, T *from) {
+	void copy(T *to, const T *from) {
 		for (int i = 0; i < size; i++)
 		{
 			*(to + i) = *(from + i);
@@ -69,7 +69,7 @@ public:
 	/*
 		Для возможности записи одного объекта в другой
 	*/
-	DStore<T> operator = (DStore<T>& obj) {
+	DStore<T> operator = (const DStore<T>& obj) {
 		this->size = obj.size;
 		this->store = new T[size];
 
@@ -81,7 +81,7 @@ public:
 	/*
 		конструктор копирования. Необходим!!!
 	*/
-	DStore(DStore<T> &obj) {
+	DStore(const DStore<T> &obj) {
 		this->size = obj.size;
 		this->store = new T[size];
 
@@ -110,7 +110,7 @@ public:
 	/*
 		Для получения данных из хранилища
 	*/
-	T* get_data() {
+	T* get_data() const {
 		return store;
 	}
 
