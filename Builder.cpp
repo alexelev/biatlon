@@ -145,15 +145,20 @@ void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 		// проверка подвала
 		string footer = get_last_line();
 		parser->parse_footer(footer);
-
-		parser->validator->set_fact_records(get_numberof_lines());
+		
+		uint numberof_lines = get_numberof_lines();
+		
+		parser->validator->set_fact_records(numberof_lines);
 
 		if (parser->validator->is_start_valid()) {
 			// построчное чтение и передача на разбор
-			goto_line(1);
+			uint cur_line = 1;
+			goto_line(cur_line);
 			string buffer;
-			getline(fin, buffer);
 			
+			while (cur_line < numberof_lines) {
+				getline(fin, buffer);	
+			}
 
 		
 		

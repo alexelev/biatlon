@@ -15,13 +15,13 @@ int main(int argc, char *argv[]) {
 	Builder b;
 	b.parser = &lex;
 
-	DStore<Biatlonist> container;
-	string path_source, path_dest;
-	bool in_console = false;
+	//DStore<Biatlonist> container;
+	//string path_source, path_dest;
+	//bool in_console = false;
 
-	/*
-		читаем параметры командной строки и определяем откуда читать данные и куда писать
-	*/
+	///*
+	//	читаем параметры командной строки и определяем откуда читать данные и куда писать
+	//*/
 	//if (argc > 1) {
 	//	switch (argc) {
 	//	case 2:

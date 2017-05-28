@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <cstdlib>
 #include "DStore.h"
 
 
@@ -96,7 +97,8 @@ public:
 	void parse_footer(string);
 	string get_footer_attr();
 	string get_header_attr();
-	string get_schema(string);
+	string get_schema(DStore<string>&);
+	void parse(string, Biatlonist);
 
 };
 

@@ -24,7 +24,6 @@ Lexer::Lexer() {
 }
 
 Lexer::~Lexer() {
-	cout << "destr Lexer\n";
 }
 
 Lexer::Lexer(string)
@@ -73,7 +72,20 @@ string Lexer::get_header_attr()
 /*
 	Для получения "схемы" формата строки файла
 */
-string Lexer::get_schema(string)
+string Lexer::get_schema(DStore<string> &set)
 {
+	uint size = set.get_size();
+	string schema = "";
+	for (size_t i = 0; i < size; i++) {
+		// http://ru.cppreference.com/w/cpp/string/byte/strtof
+	}
+
 	return string();
+}
+/*
+	Для разбора строки и десериализации объекта Biatlonist
+*/
+void Lexer::parse(string src, Biatlonist item) {
+	DStore<string> set = this->split(src);
+
 }

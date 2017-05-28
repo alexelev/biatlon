@@ -114,4 +114,8 @@ public:
 		return store;
 	}
 
+	uint get_size() {
+		return size;
+	}
+
 };
