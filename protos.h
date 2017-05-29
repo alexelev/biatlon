@@ -32,6 +32,8 @@ struct Stage {
 	ushort misses;
 	// время прохождения штрафных кругов
 	uint penalty_time;
+	// призовое место
+	uint place;
 };
 
 
@@ -42,16 +44,18 @@ private:
 	string surname;
 	string name;
 	string country;
+	string hash;
 public:
 	Biatlonist();
 	//~Biatlonist();
-	Biatlonist(string);
+	Biatlonist(string, string, string);
 	void set_name(string);
 	void set_surname(string);
 	void set_country(string);
 	string get_name();
 	string get_surname();
 	string get_country();
+	string get_hash();
 };
 
 
@@ -103,7 +107,7 @@ public:
 	string get_footer_attr();
 	string get_header_attr();
 	string get_schema(const DStore<string>&);
-	Biatlonist parse(string);
+	Biatlonist parse(string, DStore<Biatlonist>&);
 
 };
 

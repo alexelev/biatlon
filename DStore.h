@@ -118,4 +118,18 @@ public:
 		return size;
 	}
 
+	// todo: метод поиска!!!11
+
+	int index_of() {
+		T obj(hash);
+		for (int i = 0; i < size; i++) {
+			if (this->at(i) == obj) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+
+
 };

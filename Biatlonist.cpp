@@ -5,8 +5,11 @@ Biatlonist::Biatlonist() {}
 
 //Biatlonist::~Biatlonist() {}
 
-Biatlonist::Biatlonist(string name) {
+Biatlonist::Biatlonist(string name, string surname, string country) {
 	this->name = name;
+	this->surname = surname;
+	this->country = country;
+	this->hash = this->name.append(this->surname).append(this->country);
 }
 
 void Biatlonist::set_name(string name)
@@ -44,4 +47,9 @@ string Biatlonist::get_surname()
 string Biatlonist::get_country()
 {
 	return country;
+}
+
+string Biatlonist::get_hash()
+{
+	return hash;
 }

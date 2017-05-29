@@ -1,6 +1,8 @@
 #include <iostream>
 #include "protos.h"
 
+#include <vector>
+
 
 using namespace std;
 
@@ -18,6 +20,7 @@ int main(int argc, char *argv[]) {
 
 	string test = "123;12;Alex;4;Emma;2";
 	cout << lex.get_schema(lex.split(test)) << endl;
+
 
 	//DStore<Biatlonist> container;
 	//string path_source, path_dest;

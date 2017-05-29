@@ -95,17 +95,23 @@ string Lexer::get_schema(const DStore<string> &set)
 /*
 	Для разбора строки и десериализации объекта Biatlonist
 */
-Biatlonist Lexer::parse(string src) {
+Biatlonist Lexer::parse(string src, DStore<Biatlonist> &group) {
 	DStore<string> set = this->split(src);
 	if (validator->is_format_valid(get_schema(set))) {
-		Biatlonist b;
-		b.set_name(set.at(5));
-		b.set_surname(set.at(4));
-		b.set_country(set.at(6));
+		Biatlonist b(set.at(5), set.at(4), set.at(6));
+
+
+
 		Stage st;
 		st.number = stoi(set.at(1));
 		st.start_number = stoi(set.at(2));
-		st.
+		st.forth_time1 = stoi(set.at(8));
+		st.forth_time2 = stoi(set.at(9));
+		st.back_time1 = stoi(set.at(10));
+		st.back_time2 = stoi(set.at(11));
+		st.misses = stoi(set.at(12));
+		st.penalty_time = stoi(set.at(13));
+		st.place = stoi(set.at(3));
 	}
 	else {
 
