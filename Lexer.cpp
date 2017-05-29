@@ -30,7 +30,7 @@ Lexer::Lexer(string)
 {
 }
 
-void Lexer::setDelim(char d)
+void Lexer::set_delimiter(char d)
 {
 	delim = d;
 }
@@ -71,14 +71,13 @@ string Lexer::get_header_attr()
 	return string();
 }
 /*
-	Для получения "схемы" формата строки файла
+	Для получения фактической "схемы" формата строки файла
 */
 string Lexer::get_schema(const DStore<string> &set)
 {
 	uint size = set.get_size();
 	string schema = "";
 	for (size_t i = 0; i < size; i++) {
-		// http://ru.cppreference.com/w/cpp/string/byte/strtof
 		try {
 			string tmp = set.at(i);
 			if (tmp != "null") {
@@ -98,6 +97,19 @@ string Lexer::get_schema(const DStore<string> &set)
 */
 Biatlonist Lexer::parse(string src) {
 	DStore<string> set = this->split(src);
-	Biatlonist b;
+	if (validator->is_format_valid(get_schema(set))) {
+		Biatlonist b;
+		b.set_name(set.at(5));
+		b.set_surname(set.at(4));
+		b.set_country(set.at(6));
+		Stage st;
+		st.number = stoi(set.at(1));
+		st.start_number = stoi(set.at(2));
+		st.
+	}
+	else {
+
+	}
+
 	return b;
 }

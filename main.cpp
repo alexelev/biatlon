@@ -12,6 +12,7 @@ int main(int argc, char *argv[]) {
 	val.set_rule("ddddsssddddd");
 	Lexer lex;
 	lex.validator = &val;
+	lex.set_delimiter(';');
 	Builder b;
 	b.parser = &lex;
 

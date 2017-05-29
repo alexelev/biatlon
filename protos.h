@@ -15,7 +15,7 @@ class Validator;
 
 struct Stage {
 	// номер этапа гонки
-	unsigned short number;
+	ushort number;
 	// время подхода спортсмена к первому рубежу
 	uint forth_time1;
 	// время отхода спортсмена от первого рубежа
@@ -29,7 +29,7 @@ struct Stage {
 	// общее время прохождения этапа
 	uint common_time;
 	// кол-во промахов
-	unsigned short misses;
+	ushort misses;
 	// время прохождения штрафных кругов
 	uint penalty_time;
 };
@@ -46,7 +46,12 @@ public:
 	Biatlonist();
 	//~Biatlonist();
 	Biatlonist(string);
-
+	void set_name(string);
+	void set_surname(string);
+	void set_country(string);
+	string get_name();
+	string get_surname();
+	string get_country();
 };
 
 
@@ -92,7 +97,7 @@ public:
 	~Lexer();
 	Lexer(string);
 	Validator *validator;
-	void setDelim(char);
+	void set_delimiter(char);
 	void parse_header(string);
 	void parse_footer(string);
 	string get_footer_attr();
