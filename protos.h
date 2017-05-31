@@ -7,11 +7,7 @@
 
 using namespace std;
 
-class Lexer;
-class Builder;
-class Stage;
-class Biatlonist;
-class Validator;
+
 
 struct Stage {
 	// номер этапа гонки
@@ -40,7 +36,6 @@ struct Stage {
 
 class Biatlonist {
 private:
-	DStore<Stage> *stages;
 	string surname;
 	string name;
 	string country;
@@ -49,6 +44,7 @@ public:
 	Biatlonist();
 	//~Biatlonist();
 	Biatlonist(string, string, string);
+	DStore<Stage> stages;
 	void set_name(string);
 	void set_surname(string);
 	void set_country(string);
@@ -56,6 +52,8 @@ public:
 	string get_surname();
 	string get_country();
 	string get_hash();
+	static string make_hash(const string, const string, const string);
+	void show();
 };
 
 
@@ -107,8 +105,8 @@ public:
 	string get_footer_attr();
 	string get_header_attr();
 	string get_schema(const DStore<string>&);
-	Biatlonist parse(string, DStore<Biatlonist>&);
-
+	void parse(string, DStore<Biatlonist>&);
+	Stage &make_stage(const DStore<string>&);
 };
 
 
@@ -138,6 +136,14 @@ public:
 	uint get_numberof_lines();
 	// загрузка данных из файла в контейнер биатлонистов
 	void load_data(string, DStore<Biatlonist>&);
+};
+
+class Find
+{
+public:
+	Find();
+	~Find();
+	static int biatlonist_by_hash(const DStore<Biatlonist>&, const string);
 };
 
 

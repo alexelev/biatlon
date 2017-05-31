@@ -1,7 +1,5 @@
-#include <iostream>
 #include "protos.h"
 
-#include <vector>
 
 
 using namespace std;
@@ -11,16 +9,22 @@ int main(int argc, char *argv[]) {
 	setlocale(LC_ALL, "ru");
 
 	Validator val;
-	val.set_rule("ddddsssddddd");
+	val.set_rule("ddddsssdddddd");
 	Lexer lex;
 	lex.validator = &val;
 	lex.set_delimiter(';');
 	Builder b;
 	b.parser = &lex;
 
-	string test = "123;12;Alex;4;Emma;2";
-	cout << lex.get_schema(lex.split(test)) << endl;
+	DStore<Biatlonist> sportsmen;
 
+	b.load_data("test.txt", sportsmen);
+	sportsmen.show();
+
+	//string test = "123;12;Alex;4;Emma;2";
+	//cout << lex.get_schema(lex.split(test)) << endl;
+
+	//cout << to_string(4) << endl;
 
 	//DStore<Biatlonist> container;
 	//string path_source, path_dest;

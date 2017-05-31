@@ -54,7 +54,7 @@ void Lexer::parse_footer(string str) {
 		string data = str.substr(fl, str.length() - fl);
 		fpos_t pos_delim = data.find(delim);
 		if (pos_delim != string::npos) {
-			string str_records = data.substr(0, pos_delim - 1);
+			string str_records = data.substr(0, pos_delim);
 			validator->set_qual_records(stoi(str_records));
 		}
 	}
@@ -81,6 +81,7 @@ string Lexer::get_schema(const DStore<string> &set)
 		try {
 			string tmp = set.at(i);
 			if (tmp != "null") {
+				// конвертация строки в число, если удачно - записываем d, иначе - s
 				double digit = stod(tmp);
 				schema.append("d");
 			}
@@ -95,27 +96,40 @@ string Lexer::get_schema(const DStore<string> &set)
 /*
 	Для разбора строки и десериализации объекта Biatlonist
 */
-Biatlonist Lexer::parse(string src, DStore<Biatlonist> &group) {
+void Lexer::parse(string src, DStore<Biatlonist> &group) {
 	DStore<string> set = this->split(src);
+	int index;
+	Biatlonist member;
+	Stage stage = make_stage(set);
 	if (validator->is_format_valid(get_schema(set))) {
-		Biatlonist b(set.at(5), set.at(4), set.at(6));
-
-
-
-		Stage st;
-		st.number = stoi(set.at(1));
-		st.start_number = stoi(set.at(2));
-		st.forth_time1 = stoi(set.at(8));
-		st.forth_time2 = stoi(set.at(9));
-		st.back_time1 = stoi(set.at(10));
-		st.back_time2 = stoi(set.at(11));
-		st.misses = stoi(set.at(12));
-		st.penalty_time = stoi(set.at(13));
-		st.place = stoi(set.at(3));
+		string hash = Biatlonist::make_hash(set.at(5), set.at(4), set.at(6));
+		if ((index = Find::biatlonist_by_hash(group, hash)) != -1) {
+			member = group.at(index);
+			member.stages.push(stage);
+		}
+		else {
+			member.set_name(set.at(5));
+			member.set_surname(set.at(4));
+			member.set_country(set.at(6));
+			member.stages.push(stage);
+			group.push(member);
+		}
+		
 	}
-	else {
+	
+}
 
-	}
-
-	return b;
+Stage & Lexer::make_stage(const DStore<string> &set)
+{
+	Stage st;
+	st.number = stoi(set.at(1));
+	st.start_number = stoi(set.at(2));
+	st.forth_time1 = stoi(set.at(8));
+	st.forth_time2 = stoi(set.at(9));
+	st.back_time1 = stoi(set.at(10));
+	st.back_time2 = stoi(set.at(11));
+	st.misses = stoi(set.at(12));
+	st.penalty_time = stoi(set.at(13));
+	st.place = stoi(set.at(3));
+	return st;
 }

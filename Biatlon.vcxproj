@@ -68,6 +68,7 @@
   <ItemGroup>
     <ClCompile Include="Biatlonist.cpp" />
     <ClCompile Include="Builder.cpp" />
+    <ClCompile Include="Find.cpp" />
     <ClCompile Include="Lexer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Stage.cpp" />
@@ -83,6 +84,7 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="test.txt" />
     <Text Include="text2.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

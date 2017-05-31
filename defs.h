@@ -4,3 +4,10 @@
 #define uint unsigned int
 #define ulong unsigned long
 #define ushort unsigned short
+
+class Lexer;
+class Builder;
+class Stage;
+class Biatlonist;
+class Validator;
+class Find;

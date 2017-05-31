@@ -62,7 +62,8 @@ public:
 	*/
 	void show() {
 		for (int i = 0; i < size; i++) {
-			cout << this->at(i) << endl;
+			//cout << this->at(i) << endl;
+			this->at(i).show();
 		}
 	}
 
@@ -92,11 +93,12 @@ public:
 	/*
 		Для получения значения элемента контейнера по номеру
 	*/
-	T at(uint number) const {
+	T &at(uint number) const {
 		if (number < size) {
 			return *(store + number);
 		}
-		return "null";
+		T empty_object;
+		return empty_object;
 	}
 
 	/*
@@ -116,18 +118,6 @@ public:
 
 	uint get_size() const {
 		return size;
-	}
-
-	// todo: метод поиска!!!11
-
-	int index_of() {
-		T obj(hash);
-		for (int i = 0; i < size; i++) {
-			if (this->at(i) == obj) {
-				return i;
-			}
-		}
-		return -1;
 	}
 
 

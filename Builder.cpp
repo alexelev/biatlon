@@ -148,7 +148,7 @@ void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 		
 		uint numberof_lines = get_numberof_lines();
 		
-		parser->validator->set_fact_records(numberof_lines);
+		parser->validator->set_fact_records(numberof_lines - 2);
 
 		if (parser->validator->is_start_valid()) {
 			// построчное чтение и передача на разбор
