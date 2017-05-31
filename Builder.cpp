@@ -134,7 +134,6 @@ uint Builder::get_numberof_lines() {
 	return NULL;
 }
 
-//template <typename Z>
 void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 {
 	fin.open(path);
@@ -147,16 +146,18 @@ void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 		parser->parse_footer(footer);
 		
 		uint numberof_lines = get_numberof_lines();
+		uint fact_lines = numberof_lines - 2;
 		
-		parser->validator->set_fact_records(numberof_lines - 2);
+		parser->validator->set_fact_records(fact_lines);
 
 		if (parser->validator->is_start_valid()) {
 			// построчное чтение и передача на разбор
 			uint cur_line = 1;
+			// todo: debug this!!
 			goto_line(cur_line);
 			string buffer;
 			
-			while (cur_line < numberof_lines) {
+			while (cur_line++ < fact_lines) {
 				getline(fin, buffer);
 				parser->parse(buffer, sportsmen);
 
@@ -176,7 +177,7 @@ void Builder::goto_line(uint number) {
 		string buf;
 		uint i = 0;
 		fin.seekg(0, ios::beg);
-		while (i < number) {
+		while (i++ < number) {
 			getline(fin, buf);		
 		}
 		fin.seekg(1, ios::cur);
