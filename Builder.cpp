@@ -204,15 +204,12 @@ void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 
 void Builder::save_data(string path, const DStore<Biatlonist> &data)
 {
-	FILE *f;
-	errno_t err = fopen_s(&f, path.c_str(), "wb");
-	if (!err) {
-		//fwrite(&data, sizeof(data), 1, f);
+	fout.open(path, ios::out);
+	if (fout.is_open()) {
 		for (size_t i = 0, size = data.get_size(); i < size; i++)
 		{
-			fwrite(&data.at(i), sizeof(data.at(i)), 1, f);
+			fout << data.at(i);
 		}
-		fclose(f);
 	}
 	else {
 		Logger::invalid_phisycal_state();
@@ -221,14 +218,12 @@ void Builder::save_data(string path, const DStore<Biatlonist> &data)
 
 void Builder::save_data(string path, const DStore<string> &data)
 {
-	FILE *f;
-	errno_t err = fopen_s(&f, path.c_str(), "w");
-	if (!err) {
+	fout.open(path, ios::out);
+	if (fout.is_open()) {
 		for (size_t i = 0, size = data.get_size(); i < size; i++)
 		{
-			fwrite(&data.at(i), sizeof(data.at(i)), 1, f);
+			fout << data.at(i);
 		}
-		fclose(f);
 	}
 	else {
 		Logger::invalid_phisycal_state();
