@@ -11,3 +11,4 @@ class Stage;
 class Biatlonist;
 class Validator;
 class Find;
+class Logger;
