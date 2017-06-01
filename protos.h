@@ -37,6 +37,7 @@ private:
 	string name;
 	string country;
 	string hash;
+	uint total_misses;
 public:
 	Biatlonist();
 	~Biatlonist();
@@ -51,6 +52,8 @@ public:
 	string get_hash();
 	static string make_hash(const string, const string, const string);
 	friend ostream& operator << (ostream&, const Biatlonist &);
+	void set_total_misses();
+	uint get_total_misses();
 };
 
 

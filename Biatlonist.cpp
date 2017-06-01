@@ -1,7 +1,12 @@
 #include "protos.h"
 
 
-Biatlonist::Biatlonist() {}
+Biatlonist::Biatlonist() {
+	name = "";
+	surname = "";
+	country = "";
+	total_misses = 0;
+}
 
 Biatlonist::~Biatlonist() {}
 
@@ -58,6 +63,19 @@ string Biatlonist::make_hash(const string name, const string surname, const stri
 {
 	string result = "";
 	return result.append(name).append(surname).append(country);
+}
+
+void Biatlonist::set_total_misses()
+{
+	for (size_t i = 0, size = stages.get_size(); i < size; i++)
+	{
+		total_misses += stages.at(i).misses;
+	}
+}
+
+uint Biatlonist::get_total_misses()
+{
+	return total_misses;
 }
 
 // для вывода в консоль
