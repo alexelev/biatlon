@@ -66,10 +66,12 @@ void Builder::read() {
 string Builder::get_first_line()
 {	
 	string buffer = "";
+	fin.open(path);
 	if (fin.is_open()) {
 		fin.seekg(0, ios::beg);
 		getline(fin, buffer);
 	}
+	fin.close();
 	return buffer;
 }
 
@@ -81,6 +83,7 @@ string Builder::get_first_line()
 string Builder::get_last_line()
 {
 	string buffer = "";
+	fin.open(path);
 	if (fin.is_open()) {
 		// перемещаемся на позицию перед концом файла
 		fin.seekg(-1, ios_base::end);
@@ -114,7 +117,7 @@ string Builder::get_last_line()
 		// либо на начало файла, либо на последний символ перевода строки
 		getline(fin, buffer);
 	}
-
+	fin.close();
 	return buffer;
 }
 
@@ -123,39 +126,55 @@ string Builder::get_last_line()
 */
 uint Builder::get_numberof_lines() {
 	uint count = 0;
+	fin.open(path);
 	if (fin.is_open()) {
 		string buffer;
 		fin.seekg(0, ios::beg);
 		while (getline(fin, buffer)) {
 			count++;
 		}
+		fin.close();
 		return count;
 	}
+	fin.close();
 	return NULL;
 }
 
 void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 {
+	this->path = path;
+	// проверка заголовока
+	string header = get_first_line();
+	parser->parse_header(header);
+	// проверка подвала
+	string footer = get_last_line();
+	parser->parse_footer(footer);
+		
+	uint numberof_lines = get_numberof_lines();
+	uint fact_lines = numberof_lines - 2;
+		
+	parser->validator->set_fact_records(fact_lines);
+
 	fin.open(path);
 	if (fin.is_open()) {
-		// проверка заголовока
-		string header = get_first_line();
-		parser->parse_header(header);
-		// проверка подвала
-		string footer = get_last_line();
-		parser->parse_footer(footer);
-		
-		uint numberof_lines = get_numberof_lines();
-		uint fact_lines = numberof_lines - 2;
-		
-		parser->validator->set_fact_records(fact_lines);
 
 		if (parser->validator->is_start_valid()) {
 			// построчное чтение и передача на разбор
 			uint cur_line = 1;
 			// todo: debug this!!
-			goto_line(cur_line);
+			//goto_line(cur_line);
 			string buffer;
+			//fpos_t pos;
+			uint i = 0;
+
+			//fin.seekg(0);
+			//pos = fin.tellg();
+			while (i++ <= cur_line) {
+				getline(fin, buffer);
+			}
+			//pos = fin.tellg();
+			//fin.seekg(pos + 1);
+			//pos = fin.tellg();
 			
 			while (cur_line++ < fact_lines) {
 				getline(fin, buffer);
@@ -173,13 +192,28 @@ void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 }
 
 void Builder::goto_line(uint number) {
+	fin.close();
+	fin.open("test.txt");
+
 	if (fin.is_open()) {
+		//char a;
+		//long pos = fin.tellg();
+		//do {
+		//	fin.get(a);
+		//	pos = fin.tellg();
+		//} while (a != '\n');
+
+		fpos_t pos;
+		pos = fin.tellg();
 		string buf;
 		uint i = 0;
-		fin.seekg(0, ios::beg);
+		fin.seekg(0);
+		pos = fin.tellg();
 		while (i++ < number) {
 			getline(fin, buf);		
 		}
-		fin.seekg(1, ios::cur);
+		pos = fin.tellg();
+		fin.seekg(pos + 1);
+		pos = fin.tellg();
 	}
 }

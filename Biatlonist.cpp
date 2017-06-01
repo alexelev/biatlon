@@ -9,7 +9,7 @@ Biatlonist::Biatlonist(string name, string surname, string country) {
 	this->name = name;
 	this->surname = surname;
 	this->country = country;
-	this->hash = this->name.append(this->surname).append(this->country);
+	this->hash = this->name + this->surname + this->country;
 }
 
 void Biatlonist::set_name(string name)

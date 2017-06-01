@@ -99,24 +99,19 @@ string Lexer::get_schema(const DStore<string> &set)
 void Lexer::parse(string src, DStore<Biatlonist> &group) {
 	DStore<string> set = this->split(src);
 	int index;
-	Biatlonist member;
 	Stage stage = make_stage(set);
-	if (validator->is_format_valid(get_schema(set))) {
+	string cur_schema = get_schema(set);
+	if (validator->is_format_valid(cur_schema)) {
 		string hash = Biatlonist::make_hash(set.at(5), set.at(4), set.at(6));
 		if ((index = Find::biatlonist_by_hash(group, hash)) != -1) {
-			member = group.at(index);
-			member.stages.push(stage);
+			group.at(index).stages.push(stage);
 		}
 		else {
-			member.set_name(set.at(5));
-			member.set_surname(set.at(4));
-			member.set_country(set.at(6));
+			Biatlonist member(set.at(5), set.at(4), set.at(6));
 			member.stages.push(stage);
 			group.push(member);
 		}
-		
 	}
-	
 }
 
 Stage & Lexer::make_stage(const DStore<string> &set)

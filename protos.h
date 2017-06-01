@@ -115,15 +115,16 @@ private:
 	ifstream fin;
 	ofstream fout;
 	unsigned long filesize;
-	
+	string path;
 	uint lines;
 	// Для получения первой строки обрабатываемого файла
 	string get_first_line();
 	// Для получения последней строки обрабатываемого файла
 	string get_last_line();
-	void goto_line(uint number);
 
-public:
+
+public:	
+	void goto_line(uint number);
 	Builder();
 	~Builder();
 	Builder(string);
