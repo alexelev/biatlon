@@ -14,6 +14,7 @@ Biatlonist::Biatlonist(string name, string surname, string country) {
 	this->name = name;
 	this->surname = surname;
 	this->country = country;
+	total_misses = 0;
 	this->hash = this->name + this->surname + this->country;
 }
 
@@ -67,6 +68,7 @@ string Biatlonist::make_hash(const string name, const string surname, const stri
 
 void Biatlonist::set_total_misses()
 {
+	total_misses = 0;
 	for (size_t i = 0, size = stages.get_size(); i < size; i++)
 	{
 		total_misses += stages.at(i).misses;
@@ -83,7 +85,8 @@ ostream& operator << (ostream &os, const Biatlonist &man) {
 	os <<
 		"name: " << man.name << endl <<
 		"surname: " << man.surname << endl <<
-		"country: " << man.country << endl;
+		"country: " << man.country << endl << 
+		"total misses: " << man.total_misses << endl;
 	for (size_t i = 0, size = man.stages.get_size(); i < size; i++)
 	{
 		Stage s = man.stages.at(i);

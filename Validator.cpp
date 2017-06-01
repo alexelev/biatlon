@@ -17,7 +17,6 @@ void Validator::remove_rule(string)
 }
 
 void Validator::set_qual_records(uint qual) {
-	//cout <<
 	records = qual;
 }
 
@@ -27,6 +26,11 @@ void Validator::set_qual_stages(uint qual) {
 
 void Validator::set_fact_records (uint fact) {
 	is_records_right = fact == records;
+}
+
+void Validator::set_declared_misses(uint number)
+{
+	misses = number;
 }
 
 bool Validator::is_start_valid() {
@@ -53,4 +57,9 @@ bool Validator::is_stage_valid(uint stage_number)
 		return true;
 	}
 	return false;
+}
+
+bool Validator::is_misses_valid(uint cur_misses)
+{
+	return cur_misses == misses;
 }

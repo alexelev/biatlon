@@ -61,12 +61,12 @@ public:
 class Validator {
 private:
 	string rule;
-	//DStore<string> rules;
-	//uint rule_count;
 	// кол-во этапов
 	uint stages;
 	// кол-во записей
 	uint records;
+	// кол-во промахов
+	uint misses;
 	// правильна ли первая строка
 	bool is_header_right;
 	// правильна ли последняя строка
@@ -82,9 +82,11 @@ public:
 	void set_qual_stages(uint);
 	void set_qual_records(uint);
 	void set_fact_records(uint);
+	void set_declared_misses(uint);
 	bool is_start_valid();
 	bool is_format_valid(string);
 	bool is_stage_valid(uint);
+	bool is_misses_valid(uint);
 };
 
 
@@ -115,29 +117,24 @@ class Builder {
 private:
 	ifstream fin;
 	ofstream fout;
-	unsigned long filesize;
 	string path;
 	uint lines;
 	// Для получения первой строки обрабатываемого файла
 	string get_first_line();
 	// Для получения последней строки обрабатываемого файла
 	string get_last_line();
-
-
 public:
 	void goto_line(uint number);
 	Builder();
 	~Builder();
-	Builder(string);
+	//Builder(string);
 	Lexer *parser;
-	void set_filesize(unsigned long);
-	void read();
-	void read(string);
-	void write(string);
 	// получение фактического кол-ва строк
 	uint get_numberof_lines();
 	// загрузка данных из файла в контейнер биатлонистов
 	void load_data(string, DStore<Biatlonist>&);
+	void save_data(string, const DStore<Biatlonist>&);
+	void save_data(string, const DStore<string>&);
 };
 
 class Find
@@ -158,9 +155,12 @@ private:
 public:
 	~Logger();
 	static DStore<string> messages;
-	static void invalid_format(string);
+	static void invalid_format(uint);
 	static void invalid_stage_number(string);
 	static void invalid_total_misses();
+	static void invalid_start_validation();
+	static void invalid_phisycal_state();
+	static void show();
 };
 
 

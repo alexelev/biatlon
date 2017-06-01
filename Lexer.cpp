@@ -56,6 +56,11 @@ void Lexer::parse_footer(string str) {
 		if (pos_delim != string::npos) {
 			string str_records = data.substr(0, pos_delim);
 			validator->set_qual_records(stoi(str_records));
+
+			if (pos_delim < data.length() - 1) {
+				string str_mises = data.substr(pos_delim + 1);
+				validator->set_declared_misses(stoi(str_mises));
+			}
 		}
 	}
 	else {
@@ -103,10 +108,12 @@ void Lexer::parse(const DStore<string> &set, DStore<Biatlonist> &group) {
 		string hash = Biatlonist::make_hash(set.at(5), set.at(4), set.at(6));
 		if ((index = Find::biatlonist_by_hash(group, hash)) != -1) {
 			group.at(index).stages.push(stage);
+			group.at(index).set_total_misses();
 		}
 		else {
 			Biatlonist member(set.at(5), set.at(4), set.at(6));
 			member.stages.push(stage);
+			member.set_total_misses();
 			group.push(member);
 		}
 	}

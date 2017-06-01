@@ -6,28 +6,28 @@
 Builder::Builder() {
 }
 
-/*
-	Для открытия файла на чтение/дозапись
-*/
-Builder::Builder(string path) {
-	if (path != "") {
-		fin.open(path);
-		if (fin.is_open()) {
-			fin.seekg(0, ios::end);
-			set_filesize(fin.tellg());
-			fin.seekg(0, ios::beg);
-		}
-	}
-}
+///*
+//	Для открытия файла на чтение/дозапись
+//*/
+//Builder::Builder(string path) {
+//	if (path != "") {
+//		fin.open(path);
+//		if (fin.is_open()) {
+//			fin.seekg(0, ios::end);
+//			set_filesize(fin.tellg());
+//			fin.seekg(0, ios::beg);
+//		}
+//	}
+//}
 
-/*
-	Для установки размера файла
-*/
-void Builder::set_filesize(ulong bytes) {
-	if (bytes != NULL) {
-		filesize = bytes;
-	}
-}
+///*
+//	Для установки размера файла
+//*/
+//void Builder::set_filesize(ulong bytes) {
+//	if (bytes != NULL) {
+//		filesize = bytes;
+//	}
+//}
 
 /*
 	Деструктор
@@ -37,30 +37,30 @@ Builder::~Builder() {
 	fout.close();
 }
 
-/*
-	Для применения в случае, когда был использован конструктор без параметров
-*/
-void Builder::read(string path) {
-	fin.open(path);
-	if (fin.is_open()) {
-		parser->parse_header(get_first_line());
-		parser->parse_footer(get_last_line());
+///*
+//	Для применения в случае, когда был использован конструктор без параметров
+//*/
+//void Builder::read(string path) {
+//	fin.open(path);
+//	if (fin.is_open()) {
+//		parser->parse_header(get_first_line());
+//		parser->parse_footer(get_last_line());
+//
+//		fin.close();
+//	}
+//}
 
-		fin.close();
-	}
-}
-
-/*
-	Для применения в случае создания объекта с помощью конструктора с
-	параметром
-*/
-void Builder::read() {
-	if (fin.is_open()) {
-		parser->parse_header(get_first_line());
-		parser->parse_footer(get_last_line());
-		fin.close();
-	}
-}
+///*
+//	Для применения в случае создания объекта с помощью конструктора с
+//	параметром
+//*/
+//void Builder::read() {
+//	if (fin.is_open()) {
+//		parser->parse_header(get_first_line());
+//		parser->parse_footer(get_last_line());
+//		fin.close();
+//	}
+//}
 
 // Для получения первой строки обрабатываемого файла
 string Builder::get_first_line()
@@ -168,7 +168,6 @@ void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 				getline(fin, buffer);
 			}
 
-			// todo: отдебажить отсутствие первой строки
 			while (cur_line++ <= fact_lines) {
 				getline(fin, buffer);
 				DStore<string> set = parser->split(buffer);
@@ -177,43 +176,61 @@ void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 					parser->parse(set, sportsmen);
 				}
 				else {
-					Logger::invalid_format(set.at(0));
+					Logger::invalid_format(cur_line - 1);
 					break;
 				}
 			}
 
+			uint cur_total_misses = 0;
+			for (size_t i = 0, size = sportsmen.get_size(); i < size; i++)
+			{
+				cur_total_misses += sportsmen.at(i).get_total_misses();
+			}
 
-
+			if (!parser->validator->is_misses_valid(cur_total_misses)) {
+				Logger::invalid_total_misses();
+			}
 		}
-
-
+		else {
+			Logger::invalid_start_validation();
+		}
+		fin.close();
+	}
+	else {
+		Logger::invalid_phisycal_state();
 	}
 
 }
 
-void Builder::goto_line(uint number) {
-	fin.close();
-	fin.open("test.txt");
-
-	if (fin.is_open()) {
-		//char a;
-		//long pos = fin.tellg();
-		//do {
-		//	fin.get(a);
-		//	pos = fin.tellg();
-		//} while (a != '\n');
-
-		fpos_t pos;
-		pos = fin.tellg();
-		string buf;
-		uint i = 0;
-		fin.seekg(0);
-		pos = fin.tellg();
-		while (i++ < number) {
-			getline(fin, buf);
+void Builder::save_data(string path, const DStore<Biatlonist> &data)
+{
+	FILE *f;
+	errno_t err = fopen_s(&f, path.c_str(), "wb");
+	if (!err) {
+		//fwrite(&data, sizeof(data), 1, f);
+		for (size_t i = 0, size = data.get_size(); i < size; i++)
+		{
+			fwrite(&data.at(i), sizeof(data.at(i)), 1, f);
 		}
-		pos = fin.tellg();
-		fin.seekg(pos + 1);
-		pos = fin.tellg();
+		fclose(f);
+	}
+	else {
+		Logger::invalid_phisycal_state();
+	}
+}
+
+void Builder::save_data(string path, const DStore<string> &data)
+{
+	FILE *f;
+	errno_t err = fopen_s(&f, path.c_str(), "w");
+	if (!err) {
+		for (size_t i = 0, size = data.get_size(); i < size; i++)
+		{
+			fwrite(&data.at(i), sizeof(data.at(i)), 1, f);
+		}
+		fclose(f);
+	}
+	else {
+		Logger::invalid_phisycal_state();
 	}
 }
