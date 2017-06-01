@@ -3,7 +3,7 @@
 /*
 	Конструктор по умолчанию
 */
-Builder::Builder(){
+Builder::Builder() {
 }
 
 /*
@@ -32,7 +32,7 @@ void Builder::set_filesize(ulong bytes) {
 /*
 	Деструктор
 */
-Builder::~Builder(){
+Builder::~Builder() {
 	fin.close();
 	fout.close();
 }
@@ -51,7 +51,7 @@ void Builder::read(string path) {
 }
 
 /*
-	Для применения в случае создания объекта с помощью конструктора с 
+	Для применения в случае создания объекта с помощью конструктора с
 	параметром
 */
 void Builder::read() {
@@ -64,7 +64,7 @@ void Builder::read() {
 
 // Для получения первой строки обрабатываемого файла
 string Builder::get_first_line()
-{	
+{
 	string buffer = "";
 	fin.open(path);
 	if (fin.is_open()) {
@@ -76,9 +76,9 @@ string Builder::get_first_line()
 }
 
 
-/* 
+/*
 	Для получения последней строки обрабатываемого файла
-	использован материал ответа на вопрос http://stackoverflow.com/questions/11876290/c-fastest-way-to-read-only-last-line-of-text-file 
+	использован материал ответа на вопрос http://stackoverflow.com/questions/11876290/c-fastest-way-to-read-only-last-line-of-text-file
 */
 string Builder::get_last_line()
 {
@@ -149,10 +149,10 @@ void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 	// проверка подвала
 	string footer = get_last_line();
 	parser->parse_footer(footer);
-		
+
 	uint numberof_lines = get_numberof_lines();
 	uint fact_lines = numberof_lines - 2;
-		
+
 	parser->validator->set_fact_records(fact_lines);
 
 	fin.open(path);
@@ -161,29 +161,29 @@ void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 		if (parser->validator->is_start_valid()) {
 			// построчное чтение и передача на разбор
 			uint cur_line = 1;
-			// todo: debug this!!
-			//goto_line(cur_line);
 			string buffer;
-			//fpos_t pos;
 			uint i = 0;
 
-			//fin.seekg(0);
-			//pos = fin.tellg();
 			while (i++ <= cur_line) {
 				getline(fin, buffer);
 			}
-			//pos = fin.tellg();
-			//fin.seekg(pos + 1);
-			//pos = fin.tellg();
-			
+
+			// todo: отдебажить отсутствие первой строки
 			while (cur_line++ < fact_lines) {
 				getline(fin, buffer);
-				parser->parse(buffer, sportsmen);
-
+				DStore<string> set = parser->split(buffer);
+				string cur_schema = parser->get_schema(set);
+				if (parser->validator->is_format_valid(cur_schema)) {
+					parser->parse(set, sportsmen);
+				}
+				else {
+					Logger::invalid_format(set.at(0));
+					break;
+				}
 			}
 
-		
-		
+
+
 		}
 
 
@@ -210,7 +210,7 @@ void Builder::goto_line(uint number) {
 		fin.seekg(0);
 		pos = fin.tellg();
 		while (i++ < number) {
-			getline(fin, buf);		
+			getline(fin, buf);
 		}
 		pos = fin.tellg();
 		fin.seekg(pos + 1);

@@ -59,24 +59,41 @@ string Biatlonist::make_hash(const string name, const string surname, const stri
 	string result = "";
 	return result.append(name).append(surname).append(country);
 }
+//
+//void Biatlonist::show()
+//{
+//	cout <<
+//		"name: " << this->name << endl <<
+//		"surname: " << this->surname << endl <<
+//		"country: " << this->country << endl;
+//	for (size_t i = 0, size = stages.get_size(); i < size; i++)
+//	{
+//		Stage s = stages.at(i);
+//		cout <<
+//			"\t#: " << s.number << endl <<
+//			"\tmisses: " << s.misses << endl <<
+//			"\tplace: " << s.place << endl << 
+//			"++++++++++++++++++++++++++++++++++++++++" << endl;
+//	}
+//	cout << "=================================================\n";
+//}
 
-void Biatlonist::show()
-{
-	cout <<
-		"name: " << this->name << endl <<
-		"surname: " << this->surname << endl <<
-		"country: " << this->country << endl;
-	for (size_t i = 0, size = stages.get_size(); i < size; i++)
+// для вывода в консоль
+ostream& operator << (ostream &os, const Biatlonist &man) {
+	os <<
+		"name: " << man.name << endl <<
+		"surname: " << man.surname << endl <<
+		"country: " << man.country << endl;
+	for (size_t i = 0, size = man.stages.get_size(); i < size; i++)
 	{
-		Stage s = stages.at(i);
-		cout <<
+		Stage s = man.stages.at(i);
+		os <<
 			"\t#: " << s.number << endl <<
 			"\tmisses: " << s.misses << endl <<
-			"\tplace: " << s.place << endl << 
+			"\tplace: " << s.place << endl <<
 			"++++++++++++++++++++++++++++++++++++++++" << endl;
 	}
-	cout << "=================================================\n";
+	os << "=================================================\n";
+	return os;
 }
-
-// todo: перегрузить оператор == для сравнения объектов
 
