@@ -8,7 +8,7 @@ DStore<string> Lexer::split(string text)
 	size_t pos = 0;
 	size_t start = 0;
 	string tmp = "";
-	while ((pos = text.find_first_of(delim)) != string::npos){
+	while ((pos = text.find_first_of(delim)) != string::npos) {
 		tmp.assign(text, 0, pos);
 		text = text.substr(pos + 1);
 		set.push(tmp);
@@ -96,12 +96,10 @@ string Lexer::get_schema(const DStore<string> &set)
 /*
 	Для разбора строки и десериализации объекта Biatlonist
 */
-void Lexer::parse(string src, DStore<Biatlonist> &group) {
-	DStore<string> set = this->split(src);
+void Lexer::parse(const DStore<string> &set, DStore<Biatlonist> &group) {
 	int index;
 	Stage stage = make_stage(set);
-	string cur_schema = get_schema(set);
-	if (validator->is_format_valid(cur_schema)) {
+	if (validator->is_stage_valid(stoi(set.at(0)))) {
 		string hash = Biatlonist::make_hash(set.at(5), set.at(4), set.at(6));
 		if ((index = Find::biatlonist_by_hash(group, hash)) != -1) {
 			group.at(index).stages.push(stage);
@@ -112,7 +110,11 @@ void Lexer::parse(string src, DStore<Biatlonist> &group) {
 			group.push(member);
 		}
 	}
+	else {
+		Logger::invalid_stage_number(set.at(0));
+	}
 }
+
 
 Stage & Lexer::make_stage(const DStore<string> &set)
 {
