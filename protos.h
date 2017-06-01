@@ -4,10 +4,7 @@
 #include <cstdlib>
 #include "DStore.h"
 
-
 using namespace std;
-
-
 
 struct Stage {
 	// номер этапа гонки
@@ -42,7 +39,7 @@ private:
 	string hash;
 public:
 	Biatlonist();
-	//~Biatlonist();
+	~Biatlonist();
 	Biatlonist(string, string, string);
 	DStore<Stage> stages;
 	void set_name(string);
@@ -53,7 +50,6 @@ public:
 	string get_country();
 	string get_hash();
 	static string make_hash(const string, const string, const string);
-	//void show();
 	friend ostream& operator << (ostream&, const Biatlonist &);
 };
 
@@ -92,7 +88,7 @@ public:
 class Lexer {
 private:
 	char delim;
-	string data;	
+	string data;
 	string header_attr;
 	string footer_attr;
 public:
@@ -112,7 +108,7 @@ public:
 };
 
 
-class Builder{
+class Builder {
 private:
 	ifstream fin;
 	ofstream fout;
@@ -125,7 +121,7 @@ private:
 	string get_last_line();
 
 
-public:	
+public:
 	void goto_line(uint number);
 	Builder();
 	~Builder();

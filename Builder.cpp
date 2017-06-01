@@ -164,12 +164,12 @@ void Builder::load_data(string path, DStore<Biatlonist> &sportsmen)
 			string buffer;
 			uint i = 0;
 
-			while (i++ <= cur_line) {
+			while (i++ < cur_line) {
 				getline(fin, buffer);
 			}
 
 			// todo: отдебажить отсутствие первой строки
-			while (cur_line++ < fact_lines) {
+			while (cur_line++ <= fact_lines) {
 				getline(fin, buffer);
 				DStore<string> set = parser->split(buffer);
 				string cur_schema = parser->get_schema(set);

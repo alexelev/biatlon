@@ -3,7 +3,7 @@
 
 Biatlonist::Biatlonist() {}
 
-//Biatlonist::~Biatlonist() {}
+Biatlonist::~Biatlonist() {}
 
 Biatlonist::Biatlonist(string name, string surname, string country) {
 	this->name = name;
@@ -22,13 +22,13 @@ void Biatlonist::set_name(string name)
 void Biatlonist::set_surname(string surname)
 {
 	if (!surname.empty()) {
-		this->surname = surname;	
+		this->surname = surname;
 	}
 }
 
 void Biatlonist::set_country(string country)
 {
-	if (!country.empty()) 
+	if (!country.empty())
 	{
 		this->country = country;
 	}
@@ -59,24 +59,6 @@ string Biatlonist::make_hash(const string name, const string surname, const stri
 	string result = "";
 	return result.append(name).append(surname).append(country);
 }
-//
-//void Biatlonist::show()
-//{
-//	cout <<
-//		"name: " << this->name << endl <<
-//		"surname: " << this->surname << endl <<
-//		"country: " << this->country << endl;
-//	for (size_t i = 0, size = stages.get_size(); i < size; i++)
-//	{
-//		Stage s = stages.at(i);
-//		cout <<
-//			"\t#: " << s.number << endl <<
-//			"\tmisses: " << s.misses << endl <<
-//			"\tplace: " << s.place << endl << 
-//			"++++++++++++++++++++++++++++++++++++++++" << endl;
-//	}
-//	cout << "=================================================\n";
-//}
 
 // для вывода в консоль
 ostream& operator << (ostream &os, const Biatlonist &man) {

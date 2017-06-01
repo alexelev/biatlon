@@ -99,7 +99,7 @@ string Lexer::get_schema(const DStore<string> &set)
 void Lexer::parse(const DStore<string> &set, DStore<Biatlonist> &group) {
 	int index;
 	Stage stage = make_stage(set);
-	if (validator->is_stage_valid(stoi(set.at(0)))) {
+	if (validator->is_stage_valid(stage.number)) {
 		string hash = Biatlonist::make_hash(set.at(5), set.at(4), set.at(6));
 		if ((index = Find::biatlonist_by_hash(group, hash)) != -1) {
 			group.at(index).stages.push(stage);
