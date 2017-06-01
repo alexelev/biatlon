@@ -70,6 +70,7 @@
     <ClCompile Include="Builder.cpp" />
     <ClCompile Include="Find.cpp" />
     <ClCompile Include="Lexer.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Validator.cpp" />

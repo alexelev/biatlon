@@ -45,3 +45,12 @@ bool Validator::is_format_valid(string format)
 	}
 	return false;
 }
+
+
+bool Validator::is_stage_valid(uint stage_number)
+{
+	if (stage_number <= stages) {
+		return true;
+	}
+	return false;
+}

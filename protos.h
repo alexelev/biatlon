@@ -53,7 +53,8 @@ public:
 	string get_country();
 	string get_hash();
 	static string make_hash(const string, const string, const string);
-	void show();
+	//void show();
+	friend ostream& operator << (ostream&, const Biatlonist &);
 };
 
 
@@ -84,6 +85,7 @@ public:
 	void set_fact_records(uint);
 	bool is_start_valid();
 	bool is_format_valid(string);
+	bool is_stage_valid(uint);
 };
 
 
@@ -105,7 +107,7 @@ public:
 	string get_footer_attr();
 	string get_header_attr();
 	string get_schema(const DStore<string>&);
-	void parse(string, DStore<Biatlonist>&);
+	void parse(const DStore<string> &, DStore<Biatlonist>&);
 	Stage &make_stage(const DStore<string>&);
 };
 
@@ -141,10 +143,25 @@ public:
 
 class Find
 {
-public:
+private:
 	Find();
+
+public:
 	~Find();
 	static int biatlonist_by_hash(const DStore<Biatlonist>&, const string);
+};
+
+class Logger
+{
+private:
+	Logger();
+
+public:
+	~Logger();
+	static DStore<string> messages;
+	static void invalid_format(string);
+	static void invalid_stage_number(string);
+	static void invalid_total_misses();
 };
 
 

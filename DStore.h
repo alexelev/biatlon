@@ -62,8 +62,8 @@ public:
 	*/
 	void show() {
 		for (int i = 0; i < size; i++) {
-			//cout << this->at(i) << endl;
-			this->at(i).show();
+			cout << this->at(i) << endl;
+			//this->at(i).show();
 		}
 	}
 
