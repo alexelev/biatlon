@@ -1,4 +1,6 @@
 #include "protos.h"
+
+
 /*
 	Для "разбиения" исходной строки на массив строк по разделителю (;)
 */
@@ -40,7 +42,8 @@ void Lexer::parse_header(string str) {
 	if (pos != string::npos) {
 		uint hl = header_attr.length();
 		string data = str.substr(hl, str.length() - hl);
-		validator->set_qual_stages(stoi(data));
+		int d = stoi(data);
+		validator->set_qual_stages(d);
 	}
 	else {
 		validator->set_qual_stages(NULL);
@@ -123,7 +126,7 @@ void Lexer::parse(const DStore<string> &set, DStore<Biatlonist> &group) {
 }
 
 
-Stage & Lexer::make_stage(const DStore<string> &set)
+Stage Lexer::make_stage(const DStore<string> &set)
 {
 	Stage st;
 	st.number = stoi(set.at(1));

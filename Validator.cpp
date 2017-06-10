@@ -17,11 +17,13 @@ void Validator::remove_rule(string)
 }
 
 void Validator::set_qual_records(uint qual) {
+    is_footer_right = true;
 	records = qual;
 }
 
 void Validator::set_qual_stages(uint qual) {
-	stages = qual;	
+    is_header_right = true;
+	stages = qual;
 }
 
 void Validator::set_fact_records (uint fact) {
@@ -34,11 +36,13 @@ void Validator::set_declared_misses(uint number)
 }
 
 bool Validator::is_start_valid() {
-	
+	bool a = is_header_right,
+        b = is_footer_right,
+        c = is_records_right;
 	if (is_header_right && is_footer_right && is_records_right) {
 		return true;
 	}
-	
+
 	return false;
 }
 

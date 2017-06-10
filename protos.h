@@ -1,3 +1,5 @@
+#define __USE_MINGW_ANSI_STDIO 0
+
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -109,7 +111,7 @@ public:
 	string get_header_attr();
 	string get_schema(const DStore<string>&);
 	void parse(const DStore<string> &, DStore<Biatlonist>&);
-	Stage &make_stage(const DStore<string>&);
+	Stage make_stage(const DStore<string>&);
 };
 
 
